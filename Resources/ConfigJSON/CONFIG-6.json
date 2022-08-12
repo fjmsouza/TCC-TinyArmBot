@@ -1,0 +1,17 @@
+{
+"path": "C:\\Users\\eafs3\\Documents\\GitHub\\processamento-de-imagem-equipe_4\\Kivy\\Resources\\20220331-145632RGB(990, 660).jpg",
+"process": {
+"type": [
+  "GEOMETRICRECTIFY",
+"ADAPTIVETHRESHOLD",
+"ERODE",
+"DILATE"
+],
+"arg": [
+  "",
+"11, 2",
+"5, 5, 1",
+"5, 5, 1"
+]
+}
+}
