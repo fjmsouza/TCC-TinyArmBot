@@ -36,37 +36,10 @@ instance = ConfigurationRepository
 ocr = OCRManager
 
 json_teste = open_file('Selecione o json', False)
-# list_teste = ['BLUR(5, 5)', 'CLOSE(5, 5)', 'THRESHOLD(127)', 'SOBEL(9)']
 
 list_processed_images = []
 
-# for i in range(len(multiple_files)):
-#     frame = cv2.imread(multiple_files[i])
 frame = cv2.imread(multiple_files)
 ConfigurationRepository.set_config(instance, frame, json_path=json_teste)
-# ConfigurationRepository.set_config(instancia, frame, list_operations=list_teste)
 out_image = ConfigurationRepository.execute(instance)
 
-# list_processed_images.append(out_image)
-
-# Limpar aquivo de saída do OCR
-# clean_archive()
-
-# Colocar a chamada da função de aplicar OCRs
-# for i in range(len(list_processed_images)):
-#     OCRManager.set_parameters(ocr, list_processed_images[i], 'TESS')
-#
-#     out_text = OCRManager.execute(ocr)
-#     # out_text = Organize.Organize(out_text)
-#
-#     # output_archive = open(cwd + '/backend/OUTPUT_TREATMENT_EASY_OCR.txt', 'a+')
-#     print(out_text)
-#
-#     if i == len(list_processed_images) - 1:
-#         output_archive.write(str(out_text))
-#     else:
-#         output_archive.write(str(out_text) + "\n")
-#
-#     output_archive.close()
-#
-# print(Metrics.Metrics(cwd + '/backend/OUTPUT_TREATMENT_REFERENCE.txt', cwd + '/backend/OUTPUT_TREATMENT_EASY_OCR.txt'))
