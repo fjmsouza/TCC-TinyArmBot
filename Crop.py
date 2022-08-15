@@ -1,6 +1,6 @@
 
 def croppingSections(frame):
-    #[height0 - height1, width0 - width1]
+    #[height0 : height1, width0 : width1]
     frame_display_cropped = frame[110:210, 110:535]
     frame_led_sec_cropped = frame[245:250, 548:555]
     frame_led_bat_cropped = frame[296:303, 555:565]
