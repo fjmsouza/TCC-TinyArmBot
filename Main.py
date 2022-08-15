@@ -29,32 +29,13 @@ cv2.imwrite('Resources\Output\led3.jpg', frame_led_wait_cropped)
 cv2.imwrite('Resources\Output\led4.jpg', frame_led_free_cropped)
 cv2.imwrite('Resources\Output\lcd.jpg', frame_lcd_rectified)
 
-#print dos limiares dos leds fig 19 (todos acesos) ou fig 20 leds remainders apagados
-frame_mean = cv2.GaussianBlur(frame_led_sec_cropped, (7, 7), -1)
-cv2.imwrite('Resources\Output\ledsecmean.jpg', frame_mean)
-amostra = frame_mean[3, 3]
-print(f'limiar do led seg: {amostra}')
-frame_mean = cv2.GaussianBlur(frame_led_bat_cropped, (7, 7), -1)
-cv2.imwrite('Resources\Output\ledbatmean.jpg', frame_mean)
-amostra = frame_mean[3, 3]
-print(f'limiar do led bat: {amostra}')
-frame_mean = cv2.GaussianBlur(frame_led_wait_cropped, (7, 7), -1)
-cv2.imwrite('Resources\Output\ledwaitmean.jpg', frame_mean)
-amostra = frame_mean[3, 3]
-print(f'limiar do led wait: {amostra}')
-frame_mean = cv2.GaussianBlur(frame_led_free_cropped, (7, 7), -1)
-cv2.imwrite('Resources\Output\ledfreemean.jpg', frame_mean)
-amostra = frame_mean[3, 3]
-print(f'limiar do led free: {amostra}')
-# frame_thres = cv2.adaptiveThreshold(frame_mean, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 15, 5)
-# ret, frame_thres = cv2.threshold(frame_mean, 178, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
 # STATUS LEDS:
-# STATUS_LED_SEC = StatusLeds.statusLeds(frame_led_sec_cropped)
-# STATUS_LED_BAT = StatusLeds.statusLeds(frame_led_bat_cropped)
-# STATUS_LED_WAIT = StatusLeds.statusLeds(frame_led_wait_cropped)
-# STATUS_LED_FREE = StatusLeds.statusLeds(frame_led_free_cropped)
+STATUS_LED_SEC = StatusLeds.statusLeds(frame_led_sec_cropped)
+STATUS_LED_BAT = StatusLeds.statusLeds(frame_led_bat_cropped)
+STATUS_LED_WAIT = StatusLeds.statusLeds(frame_led_wait_cropped)
+STATUS_LED_FREE = StatusLeds.statusLeds(frame_led_free_cropped)
 
-# print(STATUS_LED_SEC, STATUS_LED_BAT, STATUS_LED_WAIT, STATUS_LED_FREE)
+print(STATUS_LED_SEC, STATUS_LED_BAT, STATUS_LED_WAIT, STATUS_LED_FREE)
 
 print("pronto! ")

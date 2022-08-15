@@ -1,12 +1,13 @@
 import cv2
 
-def statusLeds(frame,threshold = 0):
+def statusLeds(frame,threshold = 100):
 
-    frame_mean = cv2.GaussianBlur(frame_gray, (7, 7), -1)
-    # frame_thres = cv2.adaptiveThreshold(frame_mean, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 15, 5)
-    ret, frame_thres = cv2.threshold(frame_mean, threshold, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-
-    if frame_thres[3,3] == 255:
+    frame_mean = cv2.blur(frame, (3, 3), borderType=cv2.BORDER_REFLECT)
+    ret, frame_thres = cv2.threshold(frame_mean, threshold, 255, cv2.THRESH_BINARY)
+    width, height = frame_thres.shape
+    width_center = int(width/2)
+    height_center = int(height/2)
+    if frame_thres[width_center,height_center] == 255:
         return True
     else:
         return False
