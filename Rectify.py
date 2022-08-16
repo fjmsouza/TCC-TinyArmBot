@@ -14,16 +14,16 @@ def rectify(frame, resolution1, resolution2):
         aux2 = []
 
         # Pré-processamentos necessários para destacar borda e retificar a imagem.
-        # image_blur = cv2.GaussianBlur(frame, (7, 7), 1)
-        # image_gray = cv2.cvtColor(image_blur, cv2.COLOR_BGR2GRAY)
-        # image_canny = cv2.Canny(image_gray, 15, 15, 3)
-        # kernel = np.ones((5, 5))
-        # image_dilate = cv2.dilate(image_canny, kernel, iterations=1)
+        image_blur = cv2.GaussianBlur(frame, (7, 7), 1)
+        image_gray = cv2.cvtColor(image_blur, cv2.COLOR_BGR2GRAY)
+        image_canny = cv2.Canny(image_gray, 15, 15, 3)
+        kernel = np.ones((5, 5))
+        image_dilate = cv2.dilate(image_canny, kernel, iterations=1)
         # borramento
-        image_blur = cv2.GaussianBlur(frame, (3, 3), -1)
+        # image_blur = cv2.GaussianBlur(frame, (3, 3), -1)
 
         # cinza
-        image_gray = cv2.cvtColor(image_blur, cv2.COLOR_BGR2GRAY)
+        # image_gray = cv2.cvtColor(image_blur, cv2.COLOR_BGR2GRAY)
 
         # binariza
         # image_thresh = cv2.adaptiveThreshold(image_gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 15, 5)
@@ -31,7 +31,7 @@ def rectify(frame, resolution1, resolution2):
         # ret, image_thresh = cv2.threshold(image_thresh, 200, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
         # borda
-        image_canny = cv2.Canny(image_gray, 50, 150, L2gradient=True)
+        # image_canny = cv2.Canny(image_blur, 50, 150, L2gradient=True)
         # nessa configuração detecta display terminal da foto 1 e 5
 
         # image_laplace = cv2.Laplacian(image_gray, cv2.CV_16S,ksize=3)
@@ -47,7 +47,7 @@ def rectify(frame, resolution1, resolution2):
 
 
 
-        contours, hierarchy = cv2.findContours(image_canny, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        contours, hierarchy = cv2.findContours(image_dilate, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
         x = 0
         for c in contours:
@@ -150,7 +150,6 @@ def rectify(frame, resolution1, resolution2):
         matrix = cv2.getPerspectiveTransform(points_in, points_out)
         rectify = cv2.warpPerspective(frame, matrix, (resolution1, resolution2))
 
-        # cv2.imwrite('areaSelecionada.png', rectify)
         return rectify
     except(Exception,):
         return frame
