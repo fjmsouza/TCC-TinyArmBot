@@ -6,18 +6,19 @@ import Ocr
 
 def preprocess(frame):
 
-    # frame = imutils.resize(frame, height=480)
-    # frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    # frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    frame = imutils.resize(frame, height=480)
 
     # frame[frame<50]=0
     # frame[frame > 90] = 255
 
-    # histogram equalization
-    # frame = cv2.equalizeHist(frame)
+    # borra
+    frame = cv2.medianBlur(frame,3)          #funfou melhor 3,3
 
-    ##borda
-    frame = cv2.Laplacian(frame, cv2.CV_8U ,ksize=3)    #funfou melhor
+    # limiariza
+    frame = cv2.adaptiveThreshold(frame, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 13, 3)
+
+    frame = cv2.bilateralFilter(frame, 20, 200, 250)
+    # frame = cv2.Laplacian(frame, cv2.CV_8U ,ksize=3)    #funfou melhor
     # frame = cv2.Canny(frame, 30,30)
     # frame[frame != 0] = (0, 255, 0)
 
@@ -46,9 +47,7 @@ def preprocess(frame):
     # frame = cv2.cvtColor(edgeresult, cv2.COLOR_BGR2RGB)
 
 
-    #borra
-    # frame = cv2.medianBlur(frame,3)
-    # frame = cv2.GaussianBlur(frame, (21, 21), 10)          #funfou melhor 3,3
+
 
     #binariza
     # ret,frame = cv2.threshold(frame,91,255,cv2.THRESH_BINARY)
@@ -74,11 +73,13 @@ def preprocess(frame):
     # frame = cv2.medianBlur(frame,3)
     # ret,frame = cv2.threshold(frame,80,255,cv2.THRESH_BINARY_INV)
 
+
     return frame
 
 def execute(frame):
     # usar ocrs como "hash"??? ou diff de imagens mesmo?
     frame = preprocess(frame)
-    frame_fingerprint = Ocr.applyPytesseract(frame)
+    # status_screen = Ocr.applyPytesseract(frame)
+    frame = Ocr.applyEasyocr(frame)
 
-    return frame_fingerprint
+    return frame

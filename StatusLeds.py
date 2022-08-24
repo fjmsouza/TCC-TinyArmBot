@@ -11,7 +11,7 @@ def status1Led(frame,threshold = 100):
     else:
         return False
 
-def status4Leds(cropped_sections):
+def execute(cropped_sections):
     STATUS_LED_SEC = status1Led(cropped_sections[0])
     STATUS_LED_BAT = status1Led(cropped_sections[1])
     STATUS_LED_WAIT = status1Led(cropped_sections[2])

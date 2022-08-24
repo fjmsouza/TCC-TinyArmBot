@@ -1,4 +1,3 @@
-import cv2
 
 def croppingSections(frame):
     # 6 CROPS
