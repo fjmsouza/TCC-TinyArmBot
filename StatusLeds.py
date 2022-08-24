@@ -1,8 +1,7 @@
 import cv2
 
-def statusLeds(frame,threshold = 100):
-    frame_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    frame_mean = cv2.blur(frame_gray, (3, 3), borderType=cv2.BORDER_REFLECT)
+def status1Led(frame,threshold = 100):
+    frame_mean = cv2.blur(frame, (3, 3), borderType=cv2.BORDER_REFLECT)
     ret, frame_thres = cv2.threshold(frame_mean, threshold, 255, cv2.THRESH_BINARY)
     width, height = frame_thres.shape
     width_center = int(width/2)
@@ -11,3 +10,10 @@ def statusLeds(frame,threshold = 100):
         return True
     else:
         return False
+
+def status4Leds(cropped_sections):
+    STATUS_LED_SEC = status1Led(cropped_sections[0])
+    STATUS_LED_BAT = status1Led(cropped_sections[1])
+    STATUS_LED_WAIT = status1Led(cropped_sections[2])
+    STATUS_LED_FREE = status1Led(cropped_sections[3])
+    return STATUS_LED_SEC, STATUS_LED_BAT, STATUS_LED_WAIT, STATUS_LED_FREE
