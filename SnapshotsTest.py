@@ -37,45 +37,44 @@ while True:
     elif k%256 == 32:
         # SPACE pressed
         print("starting test")
-
         frame = flushLoadCamera()
         cv2.imshow("1", frame)
 
-        # fp1 = StatusScreen.preprocess(frame)
         # cv2.imshow("foto1 processada", fp1)
         print("foto 1 tirada!!")
 
-        time.sleep(3)
+        time.sleep(5)
 
         frame2 = flushLoadCamera()
         cv2.imshow("2", frame2)
         print("foto 2 tirada!!")
 
-        # fp2 = StatusScreen.preprocess(frame2)
+        fp1 = StatusScreen.preprocess(frame)
+        fp2 = StatusScreen.preprocess(frame2)
         # cv2.imshow("foto2 processada", fp2)
 
-        # # calculate difference and update previous frame
-        # diff_frame = cv2.absdiff(src1=fp1, src2=fp2)
-        # cv2.imshow("diff ", diff_frame)
-        #
-        # # 4. Dilute the image a bit to make differences more seeable; more suitable for contour detection
-        # kernel = np.ones((5, 5))
-        # diff_frame = cv2.dilate(diff_frame, kernel, 1)
-        # cv2.imshow("diff + dilate ", diff_frame)
-        #
-        # # 5. Only take different areas that are different enough (>20 / 255)
-        # thresh_frame = cv2.threshold(src=diff_frame, thresh=20, maxval=255, type=cv2.THRESH_BINARY)[1]
-        # cv2.imshow("diff + dilate + thres ", thresh_frame)
-        #
-        # contours, _ = cv2.findContours(image=thresh_frame, mode=cv2.RETR_EXTERNAL, method=cv2.CHAIN_APPROX_SIMPLE)
-        # for contour in contours:
-        #     if cv2.contourArea(contour) < 50:
-        #         # too small: skip!
-        #         continue
-        #     (x, y, w, h) = cv2.boundingRect(contour)
-        #     cv2.rectangle(img=frame, pt1=(x, y), pt2=(x + w, y + h), color=(0, 255, 0), thickness=2)
-        #
-        # cv2.imshow("diff detector", frame)
+        # calculate difference and update previous frame
+        diff_frame = cv2.absdiff(src1=fp1, src2=fp2)
+        cv2.imshow("diff ", diff_frame)
+
+        # 4. Dilute the image a bit to make differences more seeable; more suitable for contour detection
+        kernel = np.ones((5, 5))
+        diff_frame = cv2.dilate(diff_frame, kernel, 1)
+        cv2.imshow("diff + dilate ", diff_frame)
+
+        # 5. Only take different areas that are different enough (>20 / 255)
+        thresh_frame = cv2.threshold(src=diff_frame, thresh=100, maxval=255, type=cv2.THRESH_BINARY)[1]
+        cv2.imshow("diff + dilate + thres ", thresh_frame)
+
+        contours, _ = cv2.findContours(image=thresh_frame, mode=cv2.RETR_EXTERNAL, method=cv2.CHAIN_APPROX_SIMPLE)
+        for contour in contours:
+            if cv2.contourArea(contour) < 10:
+                # too small: skip!
+                continue
+            (x, y, w, h) = cv2.boundingRect(contour)
+            cv2.rectangle(img=frame, pt1=(x, y), pt2=(x + w, y + h), color=(0, 255, 0), thickness=2)
+
+        cv2.imshow("diff detector", frame)
         # fp1 = Determinant.determinant(fp1)
         # fp2 = Determinant.determinant(fp2)
         # if fp1 == fp2:
