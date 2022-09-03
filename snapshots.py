@@ -1,6 +1,12 @@
 import cv2
 
-cam = cv2.VideoCapture(1)
+# cam = cv2.VideoCapture(1)
+cam = cv2.VideoCapture(1 + cv2.CAP_DSHOW)
+cam.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+cam.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+cam.set(cv2.CAP_PROP_FPS, 30)
+cam.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
+cam.set(cv2.CAP_PROP_BUFFERSIZE, 1);
 
 cv2.namedWindow("test")
 
@@ -20,7 +26,7 @@ while True:
         break
     elif k%256 == 32:
         # SPACE pressed
-        img_name = "opencv_frame_{}.png".format(img_counter)
+        img_name = "opencv_frame_{}.jpg".format(img_counter)
         cv2.imwrite(img_name, frame)
         print("{} written!".format(img_name))
         img_counter += 1

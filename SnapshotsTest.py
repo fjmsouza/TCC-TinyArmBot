@@ -43,7 +43,7 @@ while True:
         # cv2.imshow("foto1 processada", fp1)
         print("foto 1 tirada!!")
 
-        time.sleep(5)
+        time.sleep(10)
 
         frame2 = flushLoadCamera()
         cv2.imshow("2", frame2)
@@ -59,11 +59,14 @@ while True:
 
         # 4. Dilute the image a bit to make differences more seeable; more suitable for contour detection
         kernel = np.ones((5, 5))
-        diff_frame = cv2.dilate(diff_frame, kernel, 1)
+        diff_frame = cv2.dilate(diff_frame, kernel, 3)
         cv2.imshow("diff + dilate ", diff_frame)
 
         # 5. Only take different areas that are different enough (>20 / 255)
-        thresh_frame = cv2.threshold(src=diff_frame, thresh=100, maxval=255, type=cv2.THRESH_BINARY)[1]
+        thresh_frame = cv2.threshold(src=diff_frame, thresh=15, maxval=255, type=cv2.THRESH_BINARY)[1]
+        # thresh_frame = cv2.adaptiveThreshold(diff_frame, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 13, 3)
+        # ret, thresh_frame = cv2.threshold(diff_frame, 100, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+        # frame = cv2.bilateralFilter(frame, 20, 200, 250)
         cv2.imshow("diff + dilate + thres ", thresh_frame)
 
         contours, _ = cv2.findContours(image=thresh_frame, mode=cv2.RETR_EXTERNAL, method=cv2.CHAIN_APPROX_SIMPLE)

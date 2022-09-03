@@ -3,16 +3,16 @@ import Crop
 import MoveTinyArm
 import StatusLeds
 import StatusScreen
-import TakePicture
+from TakePicture import ImageInit
 import time
 
 
-def startDeskTerminalTest(general_status):
+def startDeskTerminalTest(general_status, via_cam):
     if general_status == '1':
-        status_x = DeskTerminalTest()
+        status_x = DeskTerminalTest(cam=via_cam)
         status_x.terminalInstantState()
         if status_x.status_leds == estado1:
-            # MoveTinyArm.moveTo("C")
+            MoveTinyArm.moveTo("C")
             time.sleep(2)
             general_status = '2'
             print("Test leds ok!")
@@ -20,7 +20,7 @@ def startDeskTerminalTest(general_status):
             general_status = 'error'
             print("Test leds Fail!")
     if general_status == '2':
-        status_x = DeskTerminalTest()
+        status_x = DeskTerminalTest(via_cam)
         status_x.terminalInstantState()
         if status_x.status_leds == estado2:
             # MoveTinyArm.moveTo("C")
@@ -31,7 +31,7 @@ def startDeskTerminalTest(general_status):
             general_status = 'error'
             print("Test leds Fail!")
     if general_status == '3':
-        status_x = DeskTerminalTest()
+        status_x = DeskTerminalTest(via_cam)
         status_x.terminalInstantState()
         if status_x.status_leds == estado3:
             # MoveTinyArm.moveTo("C")
@@ -42,9 +42,9 @@ def startDeskTerminalTest(general_status):
             general_status = 'error'
             print("Test leds Fail!")
     if general_status == '4':
-        status_y = DeskTerminalTest()
+        status_y = DeskTerminalTest(via_cam)
         status_y.terminalInstantState()
-        if status_x.status_lcd != status_y.status_lcd:
+        if StatusScreen.isMatched(status_x.status_lcd, status_y.status_lcd):
             # MoveTinyArm.moveTo("C")
             time.sleep(2)
             # MoveTinyArm.moveTo("1")
@@ -55,9 +55,9 @@ def startDeskTerminalTest(general_status):
             general_status = 'error'
             print("Test LCD Fail!")
     if general_status == '5':
-        status_y = DeskTerminalTest()
+        status_y = DeskTerminalTest(via_cam)
         status_y.terminalInstantState()
-        if status_x.status_display != status_y.status_display:
+        if StatusScreen.isMatched(status_x.status_display,status_y.status_display):
             # MoveTinyArm.moveTo("2")
             time.sleep(2)
             general_status = '6'
@@ -66,9 +66,9 @@ def startDeskTerminalTest(general_status):
             general_status = 'error'
             print("Test key 1 Fail!")
     if general_status == '6':
-        status_x = DeskTerminalTest()
+        status_x = DeskTerminalTest(via_cam)
         status_x.terminalInstantState()
-        if status_x.status_display != status_y.status_display:
+        if StatusScreen.isMatched(status_x.status_display,status_y.status_display):
             # MoveTinyArm.moveTo("3")
             time.sleep(2)
             general_status = '7'
@@ -77,9 +77,9 @@ def startDeskTerminalTest(general_status):
             general_status = 'error'
             print("Test key 2 Fail!")
     if general_status == '7':
-        status_y = DeskTerminalTest()
+        status_y = DeskTerminalTest(via_cam)
         status_y.terminalInstantState()
-        if status_x.status_display != status_y.status_display:
+        if StatusScreen.isMatched(status_x.status_display,status_y.status_display):
             # MoveTinyArm.moveTo("4")
             time.sleep(2)
             general_status = '8'
@@ -89,9 +89,9 @@ def startDeskTerminalTest(general_status):
             print("Test key 3 Fail!")
 
     if general_status == '8':
-        status_x = DeskTerminalTest()
+        status_x = DeskTerminalTest(via_cam)
         status_x.terminalInstantState()
-        if status_x.status_display != status_y.status_display:
+        if StatusScreen.isMatched(status_x.status_display,status_y.status_display):
             # MoveTinyArm.moveTo("5")
             time.sleep(2)
             general_status = '9'
@@ -100,9 +100,9 @@ def startDeskTerminalTest(general_status):
             general_status = 'error'
             print("Test key 4 Fail!")
     if general_status == '9':
-        status_y = DeskTerminalTest()
+        status_y = DeskTerminalTest(via_cam)
         status_y.terminalInstantState()
-        if status_x.status_display != status_y.status_display:
+        if StatusScreen.isMatched(status_x.status_display,status_y.status_display):
             # MoveTinyArm.moveTo("6")
             time.sleep(2)
             general_status = '10'
@@ -111,9 +111,9 @@ def startDeskTerminalTest(general_status):
             general_status = 'error'
             print("Test key 5 Fail!")
     if general_status == '10':
-        status_x = DeskTerminalTest()
+        status_x = DeskTerminalTest(via_cam)
         status_x.terminalInstantState()
-        if status_x.status_display != status_y.status_display:
+        if StatusScreen.isMatched(status_x.status_display,status_y.status_display):
             # MoveTinyArm.moveTo("7")
             time.sleep(2)
             general_status = '11'
@@ -122,9 +122,9 @@ def startDeskTerminalTest(general_status):
             general_status = 'error'
             print("Test key 6 Fail!")
     if general_status == '11':
-        status_y = DeskTerminalTest()
+        status_y = DeskTerminalTest(via_cam)
         status_y.terminalInstantState()
-        if status_x.status_display != status_y.status_display:
+        if StatusScreen.isMatched(status_x.status_display,status_y.status_display):
             # MoveTinyArm.moveTo("8")
             time.sleep(2)
             general_status = '12'
@@ -133,9 +133,9 @@ def startDeskTerminalTest(general_status):
             general_status = 'error'
             print("Test key 7 Fail!")
     if general_status == '12':
-        status_x = DeskTerminalTest()
+        status_x = DeskTerminalTest(via_cam)
         status_x.terminalInstantState()
-        if status_x.status_display != status_y.status_display:
+        if StatusScreen.isMatched(status_x.status_display,status_y.status_display):
             # MoveTinyArm.moveTo("9")
             time.sleep(2)
             general_status = '13'
@@ -144,9 +144,9 @@ def startDeskTerminalTest(general_status):
             general_status = 'error'
             print("Test key 8 Fail!")
     if general_status == '13':
-        status_y = DeskTerminalTest()
+        status_y = DeskTerminalTest(via_cam)
         status_y.terminalInstantState()
-        if status_x.status_display != status_y.status_display:
+        if StatusScreen.isMatched(status_x.status_display,status_y.status_display):
             # MoveTinyArm.moveTo("G")
             time.sleep(2)
             general_status = '14'
@@ -155,9 +155,9 @@ def startDeskTerminalTest(general_status):
             general_status = 'error'
             print("Test key 9 Fail!")
     if general_status == '14':
-        status_x = DeskTerminalTest()
+        status_x = DeskTerminalTest(via_cam)
         status_x.terminalInstantState()
-        if status_x.status_display != status_y.status_display:
+        if StatusScreen.isMatched(status_x.status_display,status_y.status_display):
             # MoveTinyArm.moveTo("0")
             time.sleep(2)
             general_status = '15'
@@ -166,9 +166,9 @@ def startDeskTerminalTest(general_status):
             general_status = 'error'
             print("Test key CORRIGE Fail!")
     if general_status == '15':
-        status_y = DeskTerminalTest()
+        status_y = DeskTerminalTest(via_cam)
         status_y.terminalInstantState()
-        if status_x.status_display != status_y.status_display:
+        if StatusScreen.isMatched(status_x.status_display,status_y.status_display):
             # MoveTinyArm.moveTo("C")
             time.sleep(2)
             print("Test key 0 ok!")
@@ -177,9 +177,9 @@ def startDeskTerminalTest(general_status):
             general_status = 'error'
             print("Test key 0 Fail!")
     if general_status == '16':
-        status_x = DeskTerminalTest()
+        status_x = DeskTerminalTest(via_cam)
         status_x.terminalInstantState()
-        if status_x.status_display != status_y.status_display:
+        if StatusScreen.isMatched(status_x.status_display,status_y.status_display):
             time.sleep(2)
             print("Test key CONFIRMA ok!")
         else:
@@ -194,8 +194,9 @@ def startDeskTerminalTest(general_status):
 
 class DeskTerminalTest:
 
-    def __init__(self):
-        self.frame = TakePicture.takeGrayPicture()
+    def __init__(self, cam=True):
+        self.via_cam = cam
+        self.frame = ImageInit(self.via_cam).takeGrayPicture()
 
         self.status_screen = None
 
@@ -230,9 +231,11 @@ class DeskTerminalTest:
         # STATE OF 4 LEDS:
         self.status_leds = self.statusLeds()
 
-        # STATE OF SCREEN ("FINGERPRINT")
-        self.status_lcd = self.statusScreen(self.cropped_sections[5])
-        self.status_display = self.statusScreen(self.cropped_sections[4])
+        # STATE OF SCREENS:
+        self.status_lcd = self.cropped_sections[5]
+        self.status_display = self.cropped_sections[4]
+
+
 
 
 estado1 = True, True, True, True
@@ -246,5 +249,16 @@ while True:
     start = input("type 's' to start the test:")
     start = start.lower()
     if start == 's':
+        source = input("type 'c' to source via Camera ou 'p' via Photo file:")
+        source = source.lower()
+        if source == 'c':
+            via_cam = True
+        elif source== 'p':
+            via_cam = False
+        else:
+            print("Please, type a valid option! ")
+            break
         general_status = '1'
-        startDeskTerminalTest(general_status)
+        startDeskTerminalTest(general_status, via_cam)
+    else:
+        print("Please, type a valid option! ")
