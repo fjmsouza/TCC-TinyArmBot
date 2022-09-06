@@ -8,8 +8,7 @@ def moveTo(key):
         ser.port = 'COM4'
         ser.open()
         print("serial opened!")
-        key ="b'"+key+"'"
-        ser.write(key)
+        ser.write(key.encode())
     except:
         print("error to open serial port!")
     ser.close()             # close port

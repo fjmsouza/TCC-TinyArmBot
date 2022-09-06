@@ -28,7 +28,7 @@ class ImageInit:
         if self.via_cam:
             self.flushLoadCamera()
         else:
-            path_open = fileopenbox(title="choose a picture", multiple=False)
+            path_open = fileopenbox(title="choose a picture", default=r"\Resources\LUZ_ARTIFICIAL4_JPG(COM SUPORTE)")
             self.frame = cv2.imread(path_open)
 
         try:

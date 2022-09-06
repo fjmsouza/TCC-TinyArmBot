@@ -5,15 +5,25 @@ import StatusLeds
 import StatusScreen
 from TakePicture import ImageInit
 import time
+import winsound
+frequency = 2500  # Set Frequency To 2500 Hertz
+duration = 1000  # Set Duration To 1000 ms == 1 second
+
 
 
 def startDeskTerminalTest(general_status, via_cam):
+    delay_fast = 0.5
+    delay_medium = 2
+    delay_lazy = 5
+
     if general_status == '1':
+        MoveTinyArm.moveTo("S")
         status_x = DeskTerminalTest(cam=via_cam)
         status_x.terminalInstantState()
         if status_x.status_leds == estado1:
             MoveTinyArm.moveTo("C")
-            time.sleep(2)
+            MoveTinyArm.moveTo("S")
+            time.sleep(delay_medium)
             general_status = '2'
             print("Test leds ok!")
         else:
@@ -23,8 +33,9 @@ def startDeskTerminalTest(general_status, via_cam):
         status_x = DeskTerminalTest(via_cam)
         status_x.terminalInstantState()
         if status_x.status_leds == estado2:
-            # MoveTinyArm.moveTo("C")
-            time.sleep(2)
+            MoveTinyArm.moveTo("C")
+            MoveTinyArm.moveTo("S")
+            time.sleep(delay_lazy)
             general_status = '3'
             print("Test leds ok!")
         else:
@@ -34,8 +45,9 @@ def startDeskTerminalTest(general_status, via_cam):
         status_x = DeskTerminalTest(via_cam)
         status_x.terminalInstantState()
         if status_x.status_leds == estado3:
-            # MoveTinyArm.moveTo("C")
-            time.sleep(2)
+            MoveTinyArm.moveTo("C")
+            MoveTinyArm.moveTo("S")
+            time.sleep(delay_medium)
             general_status = '4'
             print("Test leds ok!")
         else:
@@ -44,11 +56,17 @@ def startDeskTerminalTest(general_status, via_cam):
     if general_status == '4':
         status_y = DeskTerminalTest(via_cam)
         status_y.terminalInstantState()
-        if StatusScreen.isMatched(status_x.status_lcd, status_y.status_lcd):
-            # MoveTinyArm.moveTo("C")
-            time.sleep(2)
-            # MoveTinyArm.moveTo("1")
-            time.sleep(2)
+        if StatusScreen.changed(status_x.status_lcd, status_y.status_lcd):
+            MoveTinyArm.moveTo("C")
+            MoveTinyArm.moveTo("S")
+            time.sleep(delay_medium)
+
+            status_x = DeskTerminalTest(via_cam)
+            status_x.terminalInstantState()
+
+            MoveTinyArm.moveTo("1")
+            MoveTinyArm.moveTo("S")
+            time.sleep(delay_fast)
             general_status = '5'
             print("Test lcd ok!")
         else:
@@ -57,9 +75,10 @@ def startDeskTerminalTest(general_status, via_cam):
     if general_status == '5':
         status_y = DeskTerminalTest(via_cam)
         status_y.terminalInstantState()
-        if StatusScreen.isMatched(status_x.status_display,status_y.status_display):
-            # MoveTinyArm.moveTo("2")
-            time.sleep(2)
+        if StatusScreen.changed(status_x.status_display, status_y.status_display):
+            MoveTinyArm.moveTo("2")
+            MoveTinyArm.moveTo("S")
+            time.sleep(delay_fast)
             general_status = '6'
             print("Test key 1 ok!")
         else:
@@ -68,9 +87,10 @@ def startDeskTerminalTest(general_status, via_cam):
     if general_status == '6':
         status_x = DeskTerminalTest(via_cam)
         status_x.terminalInstantState()
-        if StatusScreen.isMatched(status_x.status_display,status_y.status_display):
-            # MoveTinyArm.moveTo("3")
-            time.sleep(2)
+        if StatusScreen.changed(status_x.status_display, status_y.status_display):
+            MoveTinyArm.moveTo("3")
+            MoveTinyArm.moveTo("S")
+            time.sleep(delay_fast)
             general_status = '7'
             print("Test key 2 ok!")
         else:
@@ -79,9 +99,10 @@ def startDeskTerminalTest(general_status, via_cam):
     if general_status == '7':
         status_y = DeskTerminalTest(via_cam)
         status_y.terminalInstantState()
-        if StatusScreen.isMatched(status_x.status_display,status_y.status_display):
-            # MoveTinyArm.moveTo("4")
-            time.sleep(2)
+        if StatusScreen.changed(status_x.status_display, status_y.status_display):
+            MoveTinyArm.moveTo("4")
+            MoveTinyArm.moveTo("S")
+            time.sleep(delay_fast)
             general_status = '8'
             print("Test key 3 ok!")
         else:
@@ -91,9 +112,10 @@ def startDeskTerminalTest(general_status, via_cam):
     if general_status == '8':
         status_x = DeskTerminalTest(via_cam)
         status_x.terminalInstantState()
-        if StatusScreen.isMatched(status_x.status_display,status_y.status_display):
-            # MoveTinyArm.moveTo("5")
-            time.sleep(2)
+        if StatusScreen.changed(status_x.status_display, status_y.status_display):
+            MoveTinyArm.moveTo("5")
+            MoveTinyArm.moveTo("S")
+            time.sleep(delay_fast)
             general_status = '9'
             print("Test key 4 ok!")
         else:
@@ -102,9 +124,10 @@ def startDeskTerminalTest(general_status, via_cam):
     if general_status == '9':
         status_y = DeskTerminalTest(via_cam)
         status_y.terminalInstantState()
-        if StatusScreen.isMatched(status_x.status_display,status_y.status_display):
-            # MoveTinyArm.moveTo("6")
-            time.sleep(2)
+        if StatusScreen.changed(status_x.status_display, status_y.status_display):
+            MoveTinyArm.moveTo("6")
+            MoveTinyArm.moveTo("S")
+            time.sleep(delay_fast)
             general_status = '10'
             print("Test key 5 ok!")
         else:
@@ -113,9 +136,10 @@ def startDeskTerminalTest(general_status, via_cam):
     if general_status == '10':
         status_x = DeskTerminalTest(via_cam)
         status_x.terminalInstantState()
-        if StatusScreen.isMatched(status_x.status_display,status_y.status_display):
-            # MoveTinyArm.moveTo("7")
-            time.sleep(2)
+        if StatusScreen.changed(status_x.status_display, status_y.status_display):
+            MoveTinyArm.moveTo("7")
+            MoveTinyArm.moveTo("S")
+            time.sleep(delay_fast)
             general_status = '11'
             print("Test key 6 ok!")
         else:
@@ -124,9 +148,10 @@ def startDeskTerminalTest(general_status, via_cam):
     if general_status == '11':
         status_y = DeskTerminalTest(via_cam)
         status_y.terminalInstantState()
-        if StatusScreen.isMatched(status_x.status_display,status_y.status_display):
-            # MoveTinyArm.moveTo("8")
-            time.sleep(2)
+        if StatusScreen.changed(status_x.status_display, status_y.status_display):
+            MoveTinyArm.moveTo("8")
+            MoveTinyArm.moveTo("S")
+            time.sleep(delay_fast)
             general_status = '12'
             print("Test key 7 ok!")
         else:
@@ -135,9 +160,10 @@ def startDeskTerminalTest(general_status, via_cam):
     if general_status == '12':
         status_x = DeskTerminalTest(via_cam)
         status_x.terminalInstantState()
-        if StatusScreen.isMatched(status_x.status_display,status_y.status_display):
-            # MoveTinyArm.moveTo("9")
-            time.sleep(2)
+        if StatusScreen.changed(status_x.status_display, status_y.status_display):
+            MoveTinyArm.moveTo("9")
+            MoveTinyArm.moveTo("S")
+            time.sleep(delay_fast)
             general_status = '13'
             print("Test key 8 ok!")
         else:
@@ -146,9 +172,10 @@ def startDeskTerminalTest(general_status, via_cam):
     if general_status == '13':
         status_y = DeskTerminalTest(via_cam)
         status_y.terminalInstantState()
-        if StatusScreen.isMatched(status_x.status_display,status_y.status_display):
-            # MoveTinyArm.moveTo("G")
-            time.sleep(2)
+        if StatusScreen.changed(status_x.status_display, status_y.status_display):
+            MoveTinyArm.moveTo("G")
+            MoveTinyArm.moveTo("S")
+            time.sleep(delay_fast)
             general_status = '14'
             print("Test key 9 ok!")
         else:
@@ -157,9 +184,10 @@ def startDeskTerminalTest(general_status, via_cam):
     if general_status == '14':
         status_x = DeskTerminalTest(via_cam)
         status_x.terminalInstantState()
-        if StatusScreen.isMatched(status_x.status_display,status_y.status_display):
-            # MoveTinyArm.moveTo("0")
-            time.sleep(2)
+        if StatusScreen.changed(status_x.status_display, status_y.status_display):
+            MoveTinyArm.moveTo("0")
+            MoveTinyArm.moveTo("S")
+            time.sleep(delay_fast)
             general_status = '15'
             print("Test key CORRIGE ok!")
         else:
@@ -168,9 +196,10 @@ def startDeskTerminalTest(general_status, via_cam):
     if general_status == '15':
         status_y = DeskTerminalTest(via_cam)
         status_y.terminalInstantState()
-        if StatusScreen.isMatched(status_x.status_display,status_y.status_display):
-            # MoveTinyArm.moveTo("C")
-            time.sleep(2)
+        if StatusScreen.changed(status_x.status_display, status_y.status_display):
+            MoveTinyArm.moveTo("C")
+            MoveTinyArm.moveTo("S")
+            time.sleep(delay_fast)
             print("Test key 0 ok!")
             general_status = '16'
         else:
@@ -179,17 +208,23 @@ def startDeskTerminalTest(general_status, via_cam):
     if general_status == '16':
         status_x = DeskTerminalTest(via_cam)
         status_x.terminalInstantState()
-        if StatusScreen.isMatched(status_x.status_display,status_y.status_display):
-            time.sleep(2)
+        if StatusScreen.changed(status_x.status_display, status_y.status_display):
+            time.sleep(delay_fast)
             print("Test key CONFIRMA ok!")
         else:
             general_status = 'error'
             print("Test key CONFIRMA Fail!")
     if general_status == 'error':
         print("Final Result: Test Fail!")
+        winsound.Beep(500, 500)
 
     else:
         print("Successful Test!")
+        winsound.Beep(frequency, duration)
+        time.sleep(0.2)
+        winsound.Beep(frequency, duration)
+        time.sleep(0.2)
+        winsound.Beep(frequency, duration)
 
 
 class DeskTerminalTest:
@@ -205,8 +240,8 @@ class DeskTerminalTest:
         self.frame_led_bat_cropped = self.cropped_sections[1]
         self.frame_led_wait_cropped = self.cropped_sections[2]
         self.frame_led_free_cropped = self.cropped_sections[3]
-        self.frame_display_cropped = self.cropped_sections[4]
-        self.frame_lcd_cropped = self.cropped_sections[5]
+        self.frame_lcd_cropped = self.cropped_sections[4]
+        self.frame_display_cropped = self.cropped_sections[5]
 
         self.status_leds = False, False, False, False
         self.status_display = None
@@ -232,8 +267,8 @@ class DeskTerminalTest:
         self.status_leds = self.statusLeds()
 
         # STATE OF SCREENS:
-        self.status_lcd = self.cropped_sections[5]
-        self.status_display = self.cropped_sections[4]
+        self.status_lcd = self.cropped_sections[4]
+        self.status_display = self.cropped_sections[5]
 
 
 

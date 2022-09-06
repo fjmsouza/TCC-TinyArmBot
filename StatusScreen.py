@@ -20,16 +20,18 @@ def preprocess(frame1,frame2):
     # cv2.imshow("diff + dilate ", diff_frame)
 
     # 5. Only take different areas that are different enough (>20 / 255)
-    thresh_diff_frame = cv2.threshold(src=diff_frame, thresh=15, maxval=255, type=cv2.THRESH_BINARY)[1]
+    thresh_diff_frame = cv2.threshold(src=diff_frame, thresh=5, maxval=255, type=cv2.THRESH_BINARY)[1]
 
     return thresh_diff_frame
 
 
-def isMatched(frame1,frame2):
+def changed(frame1, frame2):
     thresh_diff_frame = preprocess(frame1,frame2)
+    cv2.imwrite("thresh_diff_frame.jpg",thresh_diff_frame)
     checksum = checkSum(thresh_diff_frame)
 
     if checksum > 1000:
         return True
     else:
+        print("checksum:", checksum)
         return False
