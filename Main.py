@@ -6,13 +6,14 @@ import StatusScreen
 from TakePicture import ImageInit
 import time
 import winsound
-frequency = 2500  # Set Frequency To 2500 Hertz
+frequency_error = 1000
+frequency_ok = 2500  # Set Frequency To 2500 Hertz
 duration = 1000  # Set Duration To 1000 ms == 1 second
 
 
 
 def startDeskTerminalTest(general_status, via_cam):
-    delay_fast = 0.5
+    delay_fast = 1
     delay_medium = 2
     delay_lazy = 5
 
@@ -216,15 +217,15 @@ def startDeskTerminalTest(general_status, via_cam):
             print("Test key CONFIRMA Fail!")
     if general_status == 'error':
         print("Final Result: Test Fail!")
-        winsound.Beep(500, 500)
+        winsound.Beep(frequency_error, duration)
 
     else:
         print("Successful Test!")
-        winsound.Beep(frequency, duration)
+        winsound.Beep(frequency_ok, duration)
         time.sleep(0.2)
-        winsound.Beep(frequency, duration)
+        winsound.Beep(frequency_ok, duration)
         time.sleep(0.2)
-        winsound.Beep(frequency, duration)
+        winsound.Beep(frequency_ok, duration)
 
 
 class DeskTerminalTest:
@@ -288,12 +289,16 @@ while True:
         source = source.lower()
         if source == 'c':
             via_cam = True
+            general_status = '1'
+            startDeskTerminalTest(general_status, via_cam)
         elif source== 'p':
             via_cam = False
+            general_status = '1'
+            startDeskTerminalTest(general_status, via_cam)
         else:
             print("Please, type a valid option! ")
-            break
-        general_status = '1'
-        startDeskTerminalTest(general_status, via_cam)
+            # break
+        # general_status = '1'
+        # startDeskTerminalTest(general_status, via_cam)
     else:
         print("Please, type a valid option! ")

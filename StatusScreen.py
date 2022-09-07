@@ -31,7 +31,9 @@ def changed(frame1, frame2):
     checksum = checkSum(thresh_diff_frame)
 
     if checksum > 1000:
+        print("algo mudou ...checksum:", checksum)
         return True
+
     else:
-        print("checksum:", checksum)
+        print("nada mudou ...checksum:", checksum)
         return False
